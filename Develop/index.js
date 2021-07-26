@@ -1,11 +1,11 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
-
-
+const fs = require('fs')
 const generatePage = require('./utils/generateMarkdown');
+
 // TODO: Create an array of questions for user input
-const questions = 
-inquirer.prompt([
+const questions = () => {
+return inquirer.prompt([
     {
         type: 'input',
         name: 'title',
@@ -38,7 +38,7 @@ inquirer.prompt([
         type: 'confirm',
         name: 'table',
         message: 'Would you like to include a table of contents?',
-        default: false
+        default: true
       },
       {
         type: 'input',
@@ -66,25 +66,53 @@ inquirer.prompt([
       },
       {
         type: 'confirm',
-        name: 'tests',
+        name: 'confirmTests',
         message: 'Would you like to include a tests section?',
-        default: false
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'tests',
+        message: 'Provide examples of the tests and instructions on how to run them',
+        when: ({ confirmTests }) => {
+          if (confirmTests) {
+            return true;
+          } else {
+            return false;
+          }
+        }
       },
       {
         type: 'confirm',
-        name: 'qustions',
+        name: 'confirmQuestions',
         message: 'Would you like to include a questions section?',
-        default: false
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'questions',
+        message: 'Enter your github username so that users can reach out if they have questions',
+        when: ({ confirmQuestions }) => {
+          if (confirmQuestions) {
+            return true;
+          } else {
+            return false;
+          }
+        }
       },
 ]);
+};
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+//function writeToFile(fileName, data) {}
+
+
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    
+    };
+
 
 // Function call to initialize app
 init()
-.then(questions)
-;
