@@ -1,6 +1,15 @@
+const fs = require('fs');
+
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+const generateLicenseBadge = data => {
+  if (!data.tableOfContents.includes('License')) {
+    return '';
+  }
+  let licenseURL = data.license.replace(" ", "%20")
+  return `
+[![license-${licenseURL}-blue.png](https://img.shields.io/badge/license-${licenseURL}-blue)](#License)`
+}
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
@@ -40,7 +49,7 @@ function generateMarkdown(data) {
   ${data.tests}
 
   ## Questions
-  You contact me via email at ${data.email} or through github with the following link https://www.github.com/${date.username}/
+  You contact me via email at ${data.email} or through github with the following link https://www.github.com/${data.username}/
 `;
 }
 

@@ -2,6 +2,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs')
 const generatePage = require('./utils/generateMarkdown');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = () => {
@@ -90,29 +91,61 @@ return inquirer.prompt([
       },
       {
         type: 'input',
-        name: 'questions',
-        message: 'Enter your github username so that users can reach out if they have questions',
-        when: ({ confirmQuestions }) => {
-          if (confirmQuestions) {
+        name: 'email',
+        message: 'Enter your email so that users can reach out to you with questions. (Required)',
+        validate: emailInput => {
+          if(emailInput) {
             return true;
-          } else {
+          }
+          else {
+            console.log(`Please enter your email!`);
             return false;
           }
         }
       },
+      {
+        type: 'input',
+        name: 'username',
+        message: 'Enter your github username so that users can reach out if they have questions',
+        validate: usernameInput => {
+          if (usernameInput) {
+            return true;
+          } else {
+              console.log('Please enter your github username!')
+            return false;
+          }
+        }
+      }
 ]);
 };
 
 // TODO: Create a function to write README file
-//function writeToFile(fileName, data) {}
+const writeFile = answers => {
+  console.log(answers)
+    return new Promise((resolve, reject) => {
+      fs.writeFile('README.md', generatePage({...answers}), err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve({
+          ok: true,
+          message: 'File created!'
+        });
+      });
+    });
+  };
 
-
-
-// TODO: Create a function to initialize app
-function init() {
-    
+  
+//   // TODO: Create a function to initialize app
+  function init() {
+      questions().then((answers) => {
+        //console.log('hello')
+          writeFile({...answers});
+        });
     };
 
-
-// Function call to initialize app
-init()
+    // Function call to initialize app
+    init()
+    
+    module.exports = {writeFile};
