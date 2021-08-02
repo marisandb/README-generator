@@ -91,6 +91,18 @@ return inquirer.prompt([
       },
       {
         type: 'input',
+        name: 'questions',
+        message: 'Would you like to include a questions section?',
+        when: ({ confirmQuestions }) => {
+          if (confirmQuestions) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      },
+      {
+        type: 'input',
         name: 'email',
         message: 'Enter your email so that users can reach out to you with questions. (Required)',
         validate: emailInput => {
@@ -115,7 +127,20 @@ return inquirer.prompt([
             return false;
           }
         }
-      }
+      },
+      {
+        type: 'input',
+        name: 'repoName',
+        message: 'Enter the name of your repository, please use the exact name',
+        validate: repoNameInput => {
+          if (repoNameInput) {
+            return true;
+          } else {
+              console.log('Please enter the name of your repository!')
+            return false;
+          }
+        }
+      },
 ]);
 };
 
