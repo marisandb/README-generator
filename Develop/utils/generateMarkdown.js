@@ -44,7 +44,6 @@ function generateMarkdown(data) {
 
   ## License
   ${data.license}
-  ${generateLicenseBadge(licenseBadge)}
 
   ## Contributing
   ${data.contributing}
