@@ -11,11 +11,10 @@
   * [License](#license)
 
   ## Installation
-  To install clone the repository and run an npm i
+  You will need to have node.js installed along with the npm Inquirer
 
   ## Usage
-  
-
+  ![Screenshot](https://user-images.githubusercontent.com/81273956/127805607-88d55df2-cacb-4cb4-9fce-5fbed3c40450.png)
   ## License
   undefined
 
